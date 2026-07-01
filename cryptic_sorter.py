@@ -7,7 +7,7 @@ def cryptic_sorter(strings: list[str]) -> list[str]:
         return []
     
     # 1. Store the filename in a variable
-    file = "cryptic_sort.c"
+    file = "cryptic_sorter.c"
 
     # 2. Compile the C file (swap "clang" with "gcc" if needed by your machine)
     subprocess.run(["clang", file, "-o", "sorter_bin"], capture_output=True, text=True)
