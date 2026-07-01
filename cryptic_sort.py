@@ -98,11 +98,11 @@ int main(int argc, char **argv) {
 """
 
     # 1. Write out the temporary C file
-    with open("temp.c", "w") as f:
+    with open("main.c", "w") as f:
         f.write(c_file_content)
         
     # 2. Compile the C file (swap "clang" with "gcc" if needed by your machine)
-    subprocess.run(["clang", "temp.c", "-o", "sorter_bin"], capture_output=True, text=True)
+    subprocess.run(["clang", "main.c", "-o", "sorter_bin"], capture_output=True, text=True)
     
     # 3. Execute and pass the python list elements safely as sequential system arguments
     result = subprocess.run(["./sorter_bin"] + strings, capture_output=True, text=True)
@@ -113,3 +113,8 @@ int main(int argc, char **argv) {
         output_lines.pop()  # Removes trailing blank line caused by final \n
         
     return output_lines
+
+if __name__ == "__main__":
+    print(cryptic_sorter(["apple","cat","banana","dog","elephant"]))
+    print(cryptic_sorter(["aaa","bbb","AAA","BBB"]))
+    print(cryptic_sorter(["hello","world","hi","test"]))
