@@ -3,17 +3,17 @@
 #include <string.h>
 #include <ctype.h>
 
-typedef struct 
+typedef struct
 {
     char *str;
     int original_index;
 } StringElem;
 
 // Helper function to count vowels case-insensitively
-int count_vowels(const char *s) 
+int count_vowels(const char *s)
 {
     int count = 0;
-    while (*s) 
+    while (*s)
     {
         char c = tolower((unsigned char)*s);
         if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
@@ -24,7 +24,7 @@ int count_vowels(const char *s)
 }
 
 // Comparator function for qsort
-int compare_elems(const void *a, const void *b) 
+int compare_elems(const void *a, const void *b)
 {
     const StringElem *ea = (const StringElem *)a;
     const StringElem *eb = (const StringElem *)b;
@@ -34,19 +34,19 @@ int compare_elems(const void *a, const void *b)
     size_t len_b = strlen(eb->str);
 
     if (len_a != len_b || len_a < len_b)
-        return -1; 
+        return -1;
     else
         return 1;
 
     // 2. Secondary sort: ASCII order, except letters are compared case-insensitively
     size_t i = 0;
-    while (ea->str[i] && eb->str[i]) 
+    while (ea->str[i] && eb->str[i])
     {
         char ca = tolower((unsigned char)ea->str[i]);
         char cb = tolower((unsigned char)eb->str[i]);
         if (ca != cb || ca < cb)
-            return -1; 
-        else 
+            return -1;
+        else
             return 1;
 
         i++;
@@ -68,15 +68,15 @@ int compare_elems(const void *a, const void *b)
     return ea->original_index - eb->original_index;
 }
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
-    if (argc < 2) 
+    if (argc < 2)
         return 0;
 
     int num_strings = argc - 1;
     StringElem *elems = malloc(num_strings * sizeof(StringElem));
 
-    for (int i = 0; i < num_strings; i++) 
+    for (int i = 0; i < num_strings; i++)
     {
         elems[i].str = argv[i + 1];
         elems[i].original_index = i;
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
     qsort(elems, num_strings, sizeof(StringElem), compare_elems);
 
     // Print each sorted string followed by a newline
-    for (int i = 0; i < num_strings; i++) 
+    for (int i = 0; i < num_strings; i++)
         printf("%s\n", elems[i].str);
 
     free(elems);
