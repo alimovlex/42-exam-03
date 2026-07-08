@@ -10,9 +10,7 @@ void ft_anagram(char *s1, char *s2)
     {
         char lower = *s1 | 32;
         if (lower >= 'a' && lower <= 'z')
-        {
             *(counts + (lower - 'a')) += 1;
-        }
         s1++;
     }
 
@@ -21,9 +19,7 @@ void ft_anagram(char *s1, char *s2)
     {
         char lower = *s2 | 32;
         if (lower >= 'a' && lower <= 'z')
-        {
             *(counts + (lower - 'a')) -= 1;
-        }
         s2++;
     }
 
