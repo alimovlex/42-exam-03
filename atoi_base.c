@@ -1,13 +1,14 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 // Your ft_isxdigit, upgraded to support up to Base 36
 int ft_get_digit(char c)
 {
-    if (c >= '0' && c <= '9')
+    if (isdigit(c))
         return (c & 15);
-    else if ((c | 32) >= 'a' && (c | 32) <= 'z')
-        return ((c | 32) - 'W'); // Bitwise lowercase, then map 'a' to 10
+    else if (isalpha(c))
+        return (tolower(c) - 'W'); // Bitwise lowercase, then map 'a' to 10
     else
         return (-1);
 }
