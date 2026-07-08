@@ -9,7 +9,7 @@ typedef struct
     int original_index;
 } StringElem;
 
-// Helper function to count vowels case-insensitively
+// Helper function to count vowels case-insensitively using a raw pointer
 int count_vowels(const char *s)
 {
     int count = 0;
@@ -23,33 +23,40 @@ int count_vowels(const char *s)
     return count;
 }
 
-// Comparator function for qsort
+// Comparator function for qsort using pure pointer navigation
 int compare_elems(const void *a, const void *b)
 {
     const StringElem *ea = (const StringElem *)a;
     const StringElem *eb = (const StringElem *)b;
 
-    // 1. Primary sort: By string length (shortest first)
+    // 1. Primary sort: By string length (shortest first) using standard strlen
     size_t len_a = strlen(ea->str);
     size_t len_b = strlen(eb->str);
 
-    if (len_a != len_b || len_a < len_b)
-        return -1;
-    else
-        return 1;
-
-    // 2. Secondary sort: ASCII order, except letters are compared case-insensitively
-    size_t i = 0;
-    while (ea->str[i] && eb->str[i])
+    if (len_a != len_b)
     {
-        char ca = tolower((unsigned char)ea->str[i]);
-        char cb = tolower((unsigned char)eb->str[i]);
-        if (ca != cb || ca < cb)
+        if (len_a < len_b)
             return -1;
         else
             return 1;
+    }
 
-        i++;
+    // 2. Secondary sort: ASCII order, except letters are compared case-insensitively
+    char *p1 = ea->str;
+    char *p2 = eb->str;
+    while (*p1 && *p2)
+    {
+        char ca = tolower((unsigned char)*p1);
+        char cb = tolower((unsigned char)*p2);
+        if (ca != cb)
+        {
+            if (ca < cb)
+                return -1;
+            else
+                return 1;
+        }
+        p1++;
+        p2++;
     }
 
     // 3. Tertiary sort: By number of vowels (ascending)
@@ -58,8 +65,7 @@ int compare_elems(const void *a, const void *b)
     if (v_a != v_b)
         return v_a - v_b;
 
-    // Case-insensitivity tie-breaker fallback: Standard ASCII order
-    // This ensures "AAA" comes before "aaa" as requested in Example 2
+    // Case-insensitivity tie-breaker fallback: Standard ASCII order using strcmp
     int ascii_cmp = strcmp(ea->str, eb->str);
     if (ascii_cmp != 0)
         return ascii_cmp;
@@ -75,19 +81,33 @@ int main(int argc, char **argv)
 
     int num_strings = argc - 1;
     StringElem *elems = malloc(num_strings * sizeof(StringElem));
+    if (!elems)
+        return 1;
 
-    for (int i = 0; i < num_strings; i++)
+    // Populate structure array using moving target pointers
+    StringElem *curr_elem = elems;
+    char **curr_arg = argv + 1;
+    int i = 0;
+
+    while (i < num_strings)
     {
-        elems[i].str = argv[i + 1];
-        elems[i].original_index = i;
+        curr_elem->str = *curr_arg;
+        curr_elem->original_index = i;
+        curr_elem++;
+        curr_arg++;
+        i++;
     }
 
     // Sort array using custom comparator
     qsort(elems, num_strings, sizeof(StringElem), compare_elems);
 
-    // Print each sorted string followed by a newline
-    for (int i = 0; i < num_strings; i++)
-        printf("%s\n", elems[i].str);
+    // Print each sorted string using a tracking boundary pointer
+    StringElem *print_ptr = elems;
+    while (print_ptr < elems + num_strings)
+    {
+        printf("%s\n", print_ptr->str);
+        print_ptr++;
+    }
 
     free(elems);
     return 0;

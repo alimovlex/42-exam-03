@@ -1,46 +1,50 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int is_echo_palindrome(const char *s) 
+int is_echo_palindrome(const char *s)
 {
-    char buf[1024];  /* enough for normal exam inputs */
-    int n = 0;
+    char buf[1024];  /* local buffer declaration is fine, but we navigate it with pointers */
+    char *b_ptr = buf;
+    const char *s_ptr = s;
 
-    /* build normalized buffer: only letters, lowercased */
-    for (int i = 0; s[i] != '\0'; i++) 
+    /* 1. Build normalized buffer using a moving string pointer */
+    while (*s_ptr)
     {
-        if (isalpha((unsigned char)s[i]))
-            buf[n++] = (char)tolower((unsigned char)s[i]);
+        if (isalpha((unsigned char)*s_ptr))
+        {
+            *b_ptr = (char)tolower((unsigned char)*s_ptr);
+            b_ptr++;
+        }
+        s_ptr++;
     }
-
-    /* Empty after filtering? According to spec, "" returns False,
-       so here we treat “no letters” as not palindrome. */
-    if (n == 0)
+    /* 2. Empty after filtering? Check if the buffer pointer ever moved */
+    if (b_ptr == buf)
         return 0;
+    /* 3. Check palindrome using converging pointers */
+    char *start = buf;
+    char *end = b_ptr - 1; /* Point to the last valid character written */
 
-    /* check palindrome with two indices */
-    int i = 0;
-    int j = n - 1;
-    while (i < j) 
+    while (start < end)
     {
-        if (buf[i] != buf[j])
+        if (*start != *end)
             return 0;
-        i++;
-        j--;
+        start++;
+        end--;
     }
     return 1;
 }
 
 int main(int argc, char **argv)
 {
-    if (argc < 2) 
+    if (argc < 2)
     {
-        /* No input: echo_validator("") should be False */
         printf("0\n");
         return 0;
     }
-
-    int res = is_echo_palindrome(argv[1]);
-    printf("%d\n", res);
-    return 0;
+    else
+    {
+        int res = is_echo_palindrome(*++argv);
+        printf("%d\n", res);
+        return 0;
+    }
 }

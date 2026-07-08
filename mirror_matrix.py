@@ -9,26 +9,16 @@ def mirror_matrix(matrix: list[list[int]]) -> list[list[int]]:
     executable = "./a.out"
     # Using gcc or clang (Moulinette usually has gcc if any)
     subprocess.run(["clang", file])
+    flat_args = [str(item) for row in matrix for item in row]
+    # 3. Execute and pass the python list elements safely as sequential system arguments
+    result = subprocess.run(
+        [executable, str(len(matrix)), str(len(matrix[0]))] + flat_args,
+        capture_output=True,
+        text=True,
+    )
 
-    result_matrix = []
-
-    for row in matrix:
-        # Handle empty rows
-        if not row:
-            result_matrix.append([])
-            continue
-
-        # Convert the row of integers to a list of strings for argv
-        str_row = [str(x) for x in row]
-
-        # Run the C executable, passing the row as arguments
-        run_out = subprocess.run([executable] + str_row, capture_output=True, text=True)
-
-        # Grab stdout, split it, and convert back to integers
-        reversed_row = [int(x) for x in run_out.stdout.split()]
-        result_matrix.append(reversed_row)
-
-    return result_matrix
+    stdout = result.stdout.strip()
+    return [[int(x) for x in line.split()] for line in stdout.split("\n") if line]
 
 
 if __name__ == "__main__":
