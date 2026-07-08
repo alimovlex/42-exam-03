@@ -1,25 +1,30 @@
 #include <stdio.h>
+#include <ctype.h>
 
 void ft_anagram(char *s1, char *s2)
 {
     int counts[26] = {0};
     int *c_ptr;
 
-    // Process first string using bitwise lowercase normalization
+    // Process first string using standard ctype functions
     while (*s1)
     {
-        char lower = *s1 | 32;
-        if (lower >= 'a' && lower <= 'z')
-            *(counts + (lower - 'a')) += 1;
+        if (isalpha(*s1))
+        {
+            char lower = tolower(*s1);
+            *(counts + (lower - 'a')) += 1; // Pure pointer arithmetic
+        }
         s1++;
     }
 
-    // Process second string using bitwise lowercase normalization
+    // Process second string using standard ctype functions
     while (*s2)
     {
-        char lower = *s2 | 32;
-        if (lower >= 'a' && lower <= 'z')
-            *(counts + (lower - 'a')) -= 1;
+        if (isalpha(*s2))
+        {
+            char lower = tolower(*s2);
+            *(counts + (lower - 'a')) -= 1; // Pure pointer arithmetic
+        }
         s2++;
     }
 

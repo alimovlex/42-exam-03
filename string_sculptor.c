@@ -3,41 +3,26 @@
 
 void ft_string_sculptor(char *str)
 {
-    int upper_state = 0; // 0 = lowercase turn, 1 = uppercase turn
+    int is_lower = 1;
 
     while (*str)
     {
         if (*str == ' ')
         {
-            upper_state = 0; // Spaces reset the alternation sequence
             printf("%c", *str);
+            is_lower = 1;
+        }
+        else if (isalpha(*str))
+        {
+            if (is_lower)
+                printf("%c", tolower(*str));
+            else
+                printf("%c", toupper(*str));
+            is_lower = !is_lower;
         }
         else
-        {
-            // Normalize to lowercase using your 5th-bit OR trick
-            char lower = *str | 32;
-
-            // Check if character is alphabetic
-            if (isalpha(lower))
-            {
-                if (upper_state == 0)
-                {
-                    printf("%c", lower); // Force lowercase
-                    upper_state = 1;     // Flip state to expect uppercase next
-                }
-                else
-                {
-                    // Force uppercase using bitwise AND against 223 (11011111 in binary)
-                    //printf("%c", *str & 223);
-                    printf("%c", *str ^ 32);
-                    upper_state = 0;     // Flip state to expect lowercase next
-                }
-            }
-            else
-                // Non-alphabetic characters are printed as-is without altering state
                 printf("%c", *str);
-        }
-        str++; // Advance raw pointer
+            str++;
     }
 }
 
