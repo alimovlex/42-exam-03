@@ -4,10 +4,10 @@ import subprocess
 
 def bracket_validator(s: str) -> bool:
     # Run the C program, pass the string as a single argument
-    file = "bracket_validator.c"
+    file = "bracket_validator.cpp"
     executable = "./a.out"
-    # Write C code to file and compile once
-    subprocess.run(["clang", file], capture_output=True, text=True)
+    # Write C++ code to file and compile once
+    subprocess.run(["clang++", file], capture_output=True, text=True)
     # 3. Execute and pass the python list elements safely as sequential system arguments
     proc = subprocess.run([executable, s], capture_output=True, text=True)
     # Exit code 0 => valid, non‑zero => invalid

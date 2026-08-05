@@ -13,26 +13,6 @@ int ft_get_digit(char c)
         return (-1);
 }
 
-int ft_is_space(char c)
-{
-    //Hardcoded mask for standard C whitespace (ASCII 9-13, and 32)
-    //unsigned long long mask = 0x100003E00ULL;
-
-    // Create a 64-bit unsigned int.
-    // Shift 1 by 9 for tab, and 1 by 32 for space, then bitwise OR them.
-    unsigned long long mask = (1ULL << '\t') | (1ULL << ' ') |
-                              (1ULL << '\r') | (1ULL << '\n');
-
-    // Protect against negative chars or chars > 63 to prevent
-    // undefined behavior when shifting bits.
-    if ((unsigned char)c > '?')
-        return (0);
-
-    // Shift the mask right by 'c' and bitwise AND with 1.
-    // If the bit was set, this returns 1. Otherwise, 0.
-    return ((mask >> c) & 1);
-}
-
 int ft_atoi_base(const char *str, int from_base, int to_base)
 {
     // --- Step 1: Your ft_atoi_base logic ---
@@ -40,7 +20,7 @@ int ft_atoi_base(const char *str, int from_base, int to_base)
     int digit = 0;
     int sign = 1;
 
-    while(ft_is_space(*str))
+    while(isspace(*str))
         str++;
 
     // Handle optional sign
