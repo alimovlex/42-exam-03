@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 
 void ft_hidenp(char *s1, char *s2)
@@ -15,15 +15,15 @@ void ft_hidenp(char *s1, char *s2)
     // strcmp checks if we have reached the end of s1
     // This is just a slower way of doing (!*s1)
     if (strcmp(s1, "") == 0)
-        write(1, "1\n", 2);
+        printf("1\n");
     else
-        write(1, "0\n", 2);
+        printf("0\n");
 }
 
 int main(int argc, char **argv)
 {
         if (argc != 3)
-                write(1, "\n", 1);
+                printf("\n");
         else
         {
                 char *s1 = *++argv;

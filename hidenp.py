@@ -5,10 +5,10 @@ import subprocess
 def hidenp(small: str, big: str) -> bool:
 
     # 1. Store the filename in a variable
-    file = "hidenp.c"
+    file = "hidenp.cpp"
     executable = "./a.out"
-    # 2. Compile the C file (swap "clang" with "gcc" if needed by your machine)
-    subprocess.run(["clang", file], capture_output=True, text=True)
+    # 2. Compile the C++ file (swap "clang++" with "g++" if needed by your machine)
+    subprocess.run(["clang++", file], capture_output=True, text=True)
 
     # 3. Execute and pass the python list elements safely as sequential system arguments
     result = subprocess.run([executable, small, big], capture_output=True, text=True)
