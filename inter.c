@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 
 void ft_inter(char *s1, char *s2)
@@ -15,17 +15,17 @@ void ft_inter(char *s1, char *s2)
         // 2. If p == s1, it's unique so far.
         // 3. If ft_contains returns 1, it exists in s2. Print it.
         if (ptr == s1 && strchr(s2, *s1))
-            write(1, s1, 1);
+            printf("%c", *s1);
 
         s1++;
     }
-    write(1, "\n", 1);
+    printf("\n");
 }
 
 int main(int argc, char **argv)
 {
         if (argc != 3)
-                write(1, "\n", 1);
+                printf("\n");
         else
         {
                 char *s1 = *++argv;

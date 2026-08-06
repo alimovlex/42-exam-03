@@ -5,10 +5,10 @@ import subprocess
 def inter(s1: str, s2: str) -> str:
 
     # 1. Store the filename in a variable
-    file = "inter.c"
+    file = "inter.cpp"
     executable = "./a.out"
     # 2. Compile the C file (swap "clang" with "gcc" if needed by your machine)
-    subprocess.run(["clang", file], capture_output=True, text=True)
+    subprocess.run(["clang++", file], capture_output=True, text=True)
 
     # 3. Execute and pass the python list elements safely as sequential system arguments
     result = subprocess.run([executable, s1, s2], capture_output=True, text=True)
