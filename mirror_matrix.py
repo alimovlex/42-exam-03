@@ -4,11 +4,11 @@ import subprocess
 
 def mirror_matrix(matrix: list[list[int]]) -> list[list[int]]:
 
-    # 1. Write and compile the C code globally (executes only once on script load)
-    file = "mirror_matrix.c"
+    # 1. Write and compile the C++ code globally (executes only once on script load)
+    file = "mirror_matrix.cpp"
     executable = "./a.out"
-    # Using gcc or clang (Moulinette usually has gcc if any)
-    subprocess.run(["clang", file])
+    # Using g++ or clang++ (Moulinette usually has g++ if any)
+    subprocess.run(["clang++", file])
     flat_args = [str(item) for row in matrix for item in row]
     # 3. Execute and pass the python list elements safely as sequential system arguments
     result = subprocess.run(
