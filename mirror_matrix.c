@@ -3,13 +3,14 @@
 
 void ft_mirror_matrix(char **argv)
 {
-    int rows = atoi(*(argv + 1));
-    int cols = atoi(*(argv + 2));
+    int rows = atoi(*(argv));
+    argv++;
+    int cols = atoi(*(argv));
     int r = 0;
+    argv++;
+    char **curr_row_start = argv;
 
-    char **curr_row_start = argv + 3;
-
-    while (r < rows)
+    for (int r = 0; r < rows; r++)
     {
         char **end = curr_row_start + cols - 1;
         while (end >= curr_row_start)
@@ -21,7 +22,6 @@ void ft_mirror_matrix(char **argv)
         }
         printf("\n");
         curr_row_start += cols; // Shift base pointer to the next row sequence
-        r++;
     }
 }
 
@@ -30,6 +30,6 @@ int main(int argc, char **argv)
     if (argc < 3)
         return (0);
     else
-        ft_mirror_matrix(argv);
+        ft_mirror_matrix(++argv);
     return (0);
 }
