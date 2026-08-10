@@ -3,9 +3,6 @@
 
 void ft_shadow_merge(char **argv)
 {
-    // Move past the binary name execution argument
-    argv++;
-
     // Extract lengths using pointer steps
     int len1 = atoi(*argv);
     argv++;
@@ -53,10 +50,8 @@ void ft_shadow_merge(char **argv)
 int main(int argc, char **argv)
 {
     if (argc < 3)
-    {
         printf("\n");
-        return (0);
-    }
     else
-        ft_shadow_merge(argv);
+        ft_shadow_merge(++argv);
+    return 0;
 }

@@ -5,10 +5,10 @@ import subprocess
 def shadow_merge(list1: list[int], list2: list[int]) -> list[int]:
 
     # 1. Store the filename in a variable
-    file = "shadow_merge.c"
+    file = "shadow_merge.cpp"
     executable = "./a.out"
-    # 2. Compile the C file (swap "clang" with "gcc" if needed by your machine)
-    subprocess.run(["clang", file], capture_output=True, text=True)
+    # 2. Compile the C++ file (swap "clang++" with "g++" if needed by your machine)
+    subprocess.run(["clang++", file], capture_output=True, text=True)
 
     cmd_args = (
         [executable, str(len(list1)), str(len(list2))]
