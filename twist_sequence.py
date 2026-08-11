@@ -7,7 +7,7 @@ def twist_sequence(arr: list[int], k: int) -> list[int]:
     # 1. Store the filename in a variable
     file = "twist_sequence.cpp"
     executable = "./a.out"
-    # 2. Compile the C file (swap "clang" with "gcc" if needed by your machine)
+    # 2. Compile the C file (swap "clang++" with "g++" if needed by your machine)
     subprocess.run(["clang++", file], capture_output=True, text=True)
     cmd_args = [executable, str(len(arr)), str(k)] + [str(x) for x in arr]
     # 3. Execute and pass the python list elements safely as sequential system arguments
