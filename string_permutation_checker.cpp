@@ -6,7 +6,7 @@ void ft_string_permutation_checker(const std::vector<std::string> &args)
 {
     // Access the first two string references via vector iterator
     std::vector<std::string>::const_iterator args_itr;
-    args_itr = args.begin();
+    args_itr = args.cbegin();
     const std::string s1 = *args_itr;
     args_itr++;
     const std::string s2 = *args_itr;
