@@ -5,10 +5,10 @@ import subprocess
 def string_sculptor(text: str) -> str:
 
     # 1. Store the filename in a variable
-    file = "string_sculptor.c"
+    file = "string_sculptor.cpp"
     executable = "./a.out"
-    # 2. Compile the C file (swap "clang" with "gcc" if needed by your machine)
-    subprocess.run(["clang", file], capture_output=True, text=True)
+    # 2. Compile the C++ file (swap "clang++" with "g++" if needed by your machine)
+    subprocess.run(["clang++", file], capture_output=True, text=True)
 
     # 3. Execute and pass the python list elements safely as sequential system arguments
     result = subprocess.run([executable, text], capture_output=True, text=True)
