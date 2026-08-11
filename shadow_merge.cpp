@@ -5,7 +5,7 @@
 void ft_shadow_merge(std::vector<std::string> &args)
 {
     std::vector<std::string>::const_iterator itr;
-    itr = args.begin();
+    itr = args.cbegin();
     int len1 = std::stoi(*itr);
     itr++;
     int len2 = std::stoi(*itr);

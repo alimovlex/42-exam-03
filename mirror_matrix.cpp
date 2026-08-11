@@ -5,7 +5,7 @@
 void ft_mirror_matrix(std::vector<std::string> &args)
 {
     std::vector<std::string>::const_iterator itr;
-    itr = args.begin();
+    itr = args.cbegin();
     int rows = std::stoi(*itr);
     itr++;
     int cols = std::stoi(*itr);
