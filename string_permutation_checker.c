@@ -3,8 +3,9 @@
 void ft_string_permutation_checker(char **argv)
 {
     // Cast to unsigned char to prevent negative array indexing with extended ASCII
-    unsigned char *p1 = (unsigned char *)argv[1];
-    unsigned char *p2 = (unsigned char *)argv[2];
+    unsigned char *p1 = (unsigned char *)*argv;
+    argv++;
+    unsigned char *p2 = (unsigned char *)*argv;
     int counts[256] = {0};
     int *c_ptr;
 
@@ -41,13 +42,8 @@ int main(int argc, char **argv)
 {
     // If we don't have enough arguments, it means Python passed empty boundaries
     if (argc < 3)
-    {
-        printf("1\\n");
-        return (0);
-    }
+        printf("1\n");
     else
-    {
-        ft_string_permutation_checker(argv);
-        return 0;
-    }
+        ft_string_permutation_checker(++argv);
+    return 0;
 }
