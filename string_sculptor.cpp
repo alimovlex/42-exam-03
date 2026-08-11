@@ -1,17 +1,17 @@
 #include <cctype>
 #include <iostream>
+#include <string>
 
-void ft_string_sculptor(std::string &str)
+void ft_string_sculptor(const std::string &str)
 {
     bool is_lower = true;
-    std::string::const_iterator itr;
-    // Traversing via std::string::const_iterator
-    for (itr = str.begin(); itr != str.end(); ++itr)
+    // C++11 range-based for loop
+    for (char ch : str)
     {
-        unsigned char uc = static_cast<unsigned char>(*itr);
+        unsigned char uc = static_cast<unsigned char>(ch);
         if (uc == ' ')
         {
-            std::cout << *itr;
+            std::cout << ch;
             is_lower = true;
         }
         else if (std::isalpha(uc))
@@ -24,7 +24,7 @@ void ft_string_sculptor(std::string &str)
             is_lower = !is_lower;
         }
         else
-            std::cout << *itr;
+            std::cout << ch;
     }
 }
 
@@ -36,6 +36,6 @@ int main(int argc, char **argv)
     {
         std::string str = *++argv;
         ft_string_sculptor(str);
+        return 0;
     }
-    return 0;
 }
